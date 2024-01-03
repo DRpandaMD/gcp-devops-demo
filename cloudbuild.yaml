@@ -6,15 +6,26 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build',
             '-t',
-            'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app',
+            'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app:$COMMIT_SHA',
             '.']
   # Docker Push
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push',
-            'us-central1-docker.pkg.dev/cloud-devops-viking-test-area/demo-sample-app/sample-app']
+            'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app:$COMMIT_SHA']
   
   # Deploy container image to Cloud Run
-  - name : ''
+  - name : 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'sample-app'
+      - 'image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app:$COMMIT_SHA'
 
 
   # Copied as place holder sample from https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run
