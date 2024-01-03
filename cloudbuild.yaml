@@ -1,0 +1,14 @@
+# Test Cloud Builder file
+
+# From https://cloud.google.com/build/docs/configuring-builds/create-basic-configuration
+steps:
+  # Docker Build
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build',
+            '-t',
+            'us-central1-docker.pkg.dev/cloud-devops-viking-test-area/demo-sample-app/sample-app',
+            '.']
+  # Docker Push
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push',
+            'us-central1-docker.pkg.dev/cloud-devops-viking-test-area/demo-sample-app/sample-app']
