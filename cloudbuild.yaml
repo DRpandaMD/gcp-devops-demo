@@ -20,7 +20,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'sample-app'
-      - 'image'
+      - '--image'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app:$COMMIT_SHA'
       - '--region'
       - 'us-central1'
