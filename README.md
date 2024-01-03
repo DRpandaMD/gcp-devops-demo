@@ -57,3 +57,7 @@ steps:
 ```
 
 These steps handle the build of the container image and the pushing of that image into our Artifact Registry. At this stage we already have a Cloud Build Service Set up.  I just now need to tell Cloud Build about this, the details surrounding the desired entry point, the arguments and which container image.  Lastly I will need add a Tigger to fire based on changes in the source.
+
+TODO: Add to cloudbuild.yaml file steps to run the Continuous Deployment 
+
+https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run#continuous_deployment

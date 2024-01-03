@@ -6,9 +6,40 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build',
             '-t',
-            'us-central1-docker.pkg.dev/cloud-devops-viking-test-area/demo-sample-app/sample-app',
+            'us-central1-docker.pkg.dev/$PROJECT_ID/demo-sample-app/sample-app',
             '.']
   # Docker Push
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push',
             'us-central1-docker.pkg.dev/cloud-devops-viking-test-area/demo-sample-app/sample-app']
+  
+  # Deploy container image to Cloud Run
+  - name : ''
+
+
+  # Copied as place holder sample from https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run
+  # It is not clear from the documentation if this works for Artifact Registry or JUST Container Registry
+  # I am going to go out on a limb and judging by my known working state that:
+  # `us.central1-docker.pkg.dev/${Path}` is pushing to Artifact Registry
+  # and the below `gcr.io/${Path}` is pointing to the deprecated Google Container Registry
+  # shame because gcr.io is easy to remember and the other is a bunch of nonsense
+  # steps:
+  # # Build the container image
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['build', '-t', 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA', '.']
+  # # Push the container image to Container Registry
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['push', 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA']
+  # # Deploy container image to Cloud Run
+  # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  #   entrypoint: gcloud
+  #   args:
+  #   - 'run'
+  #   - 'deploy'
+  #   - 'SERVICE-NAME'
+  #   - '--image'
+  #   - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
+  #   - '--region'
+  #   - 'REGION'
+  # images:
+  # - 'gcr.io/$PROJECT_ID/SERVICE-NAME:$COMMIT_SHA'
